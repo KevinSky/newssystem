@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<context:component-scan base-package="thrift.phone" />
+		
+	<bean id="news-balanceController" class="com.duowan.pooling.impl.InspectableBalanceController" scope="prototype">
+		<constructor-arg value="1000" />
+	</bean>
+
+	<bean id="news-conf1" class="com.duowan.pooling.thrift.TSocketConfig">
+		<constructor-arg index="0" value="${pool1.news.host}" type="java.lang.String" />
+		<constructor-arg index="1" value="${pool1.news.port}" />
+		<property name="soTimeout" value="5000"></property>
+	</bean>
+	
+	<bean id="news-conf2" class="com.duowan.pooling.thrift.TSocketConfig">
+		<constructor-arg index="0" value="${pool2.news.host}" type="java.lang.String" />
+		<constructor-arg index="1" value="${pool2.news.port}" />
+		<property name="soTimeout" value="5000"></property>
+	</bean>
+
+	<bean id="news-tsocketFactory1" class="com.duowan.pooling.thrift.TFramedTransportFactory">
+		<constructor-arg index="0" ref="news-conf1" />
+	</bean>
+
+	<bean id="news-tsocketFactory2" class="com.duowan.pooling.thrift.TFramedTransportFactory">
+		<constructor-arg index="0" ref="news-conf2" />
+	</bean>
+	
+	<bean id="news-pool1" class="com.duowan.pooling.InitalizableObjectPool">
+		<constructor-arg index="0" ref="news-tsocketFactory1" />
+		<constructor-arg index="1" ref="news-poolConf" />
+	</bean>
+
+	<bean id="news-pool2" class="com.duowan.pooling.InitalizableObjectPool">
+		<constructor-arg index="0" ref="news-tsocketFactory2" />
+		<constructor-arg index="1" ref="news-poolConf" />
+	</bean>
+
+	<bean id="news-poolManager" class="com.duowan.pooling.impl.WeightedObjectPoolManager">
+		<constructor-arg ref="news-balanceController" />
+	</bean>
+
+	<bean id="news-addPool1" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetObject">
+			<ref local="news-poolManager" />
+		</property>
+		<property name="targetMethod">
+			<value>addPool</value>
+		</property>
+		<property name="arguments">
+			<list>
+				<value>${pool1.news.name}</value>
+				<ref bean="news-pool1" />
+				<value>${pool1.news.weight}</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="news-addPool2" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetObject">
+			<ref local="news-poolManager" />
+		</property>
+		<property name="targetMethod">
+			<value>addPool</value>
+		</property>
+		<property name="arguments">
+			<list>
+				<value>${pool2.news.name}</value>
+				<ref bean="news-pool2" />
+				<value>${pool2.news.weight}</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="newsClientFactory" class="com.duowan.pooling.thrift.ThriftClientFactory">
+		<constructor-arg index="0" ref="news-poolManager" />
+		<constructor-arg index="1" value="kevin.news.thrift.NewsService$Client" />
+	</bean>
+
+	<!-- 连接池设置 -->
+	<bean id="news-poolConf" class="com.duowan.pooling.PoolConfig">
+		<property name="maxActive" value="100" />
+		<property name="maxIdle" value="100" />
+		<property name="minIdle" value="50" />
+		<property name="timeBetweenEvictionRunsMillis" value="1000" />
+		<property name="testWhileIdle" value="true" />
+	</bean>
+
+</beans>
