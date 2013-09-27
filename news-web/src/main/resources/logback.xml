@@ -53,12 +53,15 @@
 		</encoder>
 	</appender>
 	
+	<logger name="com.duowan" additivity="false" level="debug">
+	</logger>
 	<logger name="kevin.news" additivity="true" level="debug">
 		<appender-ref ref="debug_file" />
 		<appender-ref ref="error_file"/>
+		${logback-console}
 	</logger>
 	<root level="INFO">
-		<appender-ref ref="STDOUT" />
+		${logback-console}
 		<appender-ref ref="error_file" />
 	</root>
 </configuration>

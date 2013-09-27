@@ -14,6 +14,17 @@
         http://www.springframework.org/schema/tx   
         http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
         
+    <bean id="PropertyPlaceholderConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="ignoreResourceNotFound">
+			<value>false</value>
+		</property>
+		<property name="locations">
+			<list>
+				<value>classpath:${app.config}</value>							
+			</list>
+		</property>
+	</bean>
     <context:component-scan base-package="kevin.news.web">
 		<context:exclude-filter expression="org.springframework.stereotype.Controller"
 			type="annotation" />

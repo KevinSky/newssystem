@@ -1,7 +1,7 @@
 @title 生成thrift接口代码
 @echo off
 
-thrift-0.6.1.exe -o . -gen java news.thrift
+thrift-0.9.0.exe -o . -gen java news.thrift
 
 @echo on
 @echo 请稍后...

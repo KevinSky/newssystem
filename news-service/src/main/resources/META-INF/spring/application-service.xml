@@ -14,17 +14,16 @@ http://www.springframework.org/schema/cache http://www.springframework.org/schem
 http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd"
 	default-lazy-init="false">
 
-	<bean id="SpringContextUtil" class="kevin.user.util.SpringContextUtil" />
+	<bean id="SpringContextUtil" class="kevin.lib.util.SpringContextUtil" />
 	<context:property-placeholder location="classpath:/META-INF/${property.file}"
 					ignore-unresolvable="true"/>
 					
-	<context:component-scan base-package="kevin.user.service">
+	<context:component-scan base-package="kevin.news.service">
 		<context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
 	</context:component-scan>
 	
 	<context:annotation-config />
 	
 	<import resource="mybatis.xml" />
-	<import resource="hessian.xml" />
 
 </beans>

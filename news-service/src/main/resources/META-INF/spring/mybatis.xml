@@ -23,7 +23,7 @@
     </bean>
 
 	<bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="kevin.user.service.database.dao,com.yy.zbase.database.gen.mapper" />
+		<property name="basePackage" value="kevin.news.service.database.dao" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
 	</bean>
 	

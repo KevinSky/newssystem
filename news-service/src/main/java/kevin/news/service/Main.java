@@ -20,7 +20,9 @@ public class Main {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(resources);
         context.start();
         log.info("Context started ...:" + propertyFileLocation);
-        ThriftServer server = new ThriftServer();
+        
+        ThriftServer server = new ThriftTThreadPoolServer();
+        
         server.start();
     }
 

@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("newsServiceHandler")
 public class NewsServiceHandler implements Iface{
     private static Logger log = LoggerFactory.getLogger(NewsServiceHandler.class);
     
@@ -20,12 +20,11 @@ public class NewsServiceHandler implements Iface{
     private NewsService newsService;
     
     public NewsServiceHandler(){
-        log.error("UserServiceHandler is newing");
+        log.info("UserServiceHandler is newing");
     }
 
     @Override
     public List<News> getNews(int startIndex, int count) throws TException {
-        // TODO Auto-generated method stub
-        return null;
+        return newsService.getNewsList(startIndex, count);
     }
 }

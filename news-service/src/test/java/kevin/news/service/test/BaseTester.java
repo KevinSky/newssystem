@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class BaseTester {
 
     @BeforeClass
-    public static void init() { 
+    public static void init() {  
         System.getProperties().setProperty("property.file", "release.properties");
     }
-}
+} 

@@ -10,7 +10,7 @@
 		<junit_version>4.10</junit_version>
 		<mockito_version>1.9.0</mockito_version>
 		<powermock_version>1.4.11</powermock_version>
-		<thrift_version>0.6.1</thrift_version>
+		<thrift_version>0.9.0</thrift_version>
 		<jackson_version>1.9.8</jackson_version>
 		<jserverlib_version>1.6.1-SNAPSHOT</jserverlib_version>
 		<channel_card_version>0.0.1-SNAPSHOT</channel_card_version>
@@ -18,6 +18,7 @@
 		<jetty_version>8.1.4.v20120524</jetty_version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring-version>3.1.1.RELEASE</spring-version>
+		<springframework_version>3.1.1.RELEASE</springframework_version>
 		<jetty_version>8.1.4.v20120524</jetty_version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<logback_version>1.0.7</logback_version>
@@ -30,6 +31,11 @@
 	<name>news</name>
 
 	<dependencies>
+		<dependency>
+			<groupId>kevin.lib</groupId>
+			<artifactId>lib-thrift</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 				<groupId>kevin.lib</groupId>
 				<artifactId>lib-util</artifactId>
@@ -246,21 +252,6 @@
 				<artifactId>quartz</artifactId>
 				<version>1.8.6</version>
 			</dependency>
-			<dependency>
-				<groupId>org.apache.thrift</groupId>
-				<artifactId>libthrift</artifactId>
-				<version>${thrift_version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>javax.servlet</groupId>
-						<artifactId>servlet-api</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>org.slf4j</groupId>
-						<artifactId>slf4j-log4j12</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
 			<!-- test -->
 			<dependency>
 				<groupId>junit</groupId>
@@ -313,11 +304,6 @@
 				<version>1.2.0</version>
 				<type>jar</type>
 				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.thrift</groupId>
-				<artifactId>libthrift</artifactId>
-				<version>${thrift_version}</version>
 			</dependency>
 			<dependency>
 				<groupId>redis.clients</groupId>
