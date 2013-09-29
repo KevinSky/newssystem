@@ -33,14 +33,14 @@
 	<dependencies>
 		<dependency>
 			<groupId>kevin.lib</groupId>
-			<artifactId>lib-thrift</artifactId>
+			<artifactId>lib-pool</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-				<groupId>kevin.lib</groupId>
-				<artifactId>lib-util</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
-			</dependency>
+			<groupId>kevin.lib</groupId>
+			<artifactId>lib-util</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -319,4 +319,16 @@
 		<module>news-service-gen</module>
 	</modules>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

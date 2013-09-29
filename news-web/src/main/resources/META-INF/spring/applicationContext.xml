@@ -30,6 +30,6 @@
 			type="annotation" />
 	</context:component-scan>
 	
-	<import resource="news-thrift.xml"/>
+	<import resource="news-thrift-nonblocking-pool.xml"/>
 </beans>
     

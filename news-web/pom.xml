@@ -133,36 +133,6 @@
 			<version>4.0.7</version>
 		</dependency>
 		<dependency>
-			<groupId>oauth</groupId>
-			<artifactId>oauth</artifactId>
-			<version>20100601</version>
-		</dependency>
-		<dependency>
-			<groupId>oauth</groupId>
-			<artifactId>oauth-consumer</artifactId>
-			<version>20100601</version>
-		</dependency>
-		<dependency>
-			<groupId>oauth</groupId>
-			<artifactId>oauth-httpclient3</artifactId>
-			<version>20100601-x</version>
-		</dependency>
-		<dependency>
-			<groupId>oauth</groupId>
-			<artifactId>ca-client</artifactId>
-			<version>1.2-20111222</version>
-		</dependency>
-		<dependency>
-			<groupId>oauth</groupId>
-			<artifactId>ca-common</artifactId>
-			<version>1.2-20111216</version>
-		</dependency>
-		<dependency>
-			<groupId>oauth</groupId>
-			<artifactId>udb-client</artifactId>
-			<version>1.2-20120511</version>
-		</dependency>
-		<dependency>
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache-core</artifactId>
 			<version>2.5.3</version>
@@ -204,7 +174,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.2</version>
+				<version>2.3</version>
 				<configuration>
 					<warName>news</warName>
 					<webXml>src\main\webapp\WEB-INF\web.xml</webXml> 
