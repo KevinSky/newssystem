@@ -6,13 +6,14 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import kevin.lib.pool.thrift.ThriftClientPool;
+import kevin.lib.pool.thrift.ThriftClientFactory;
+import kevin.lib.pool.thrift.ThriftClientWrap;
 import kevin.news.thrift.News;
 import kevin.news.thrift.NewsService;
-import kevin.news.thrift.NewsService.Iface;
 import kevin.news.web.domain.WebNews;
-import kevin.news.web.thrift.NewsServiceClient;
 
+import org.apache.thrift.protocol.TBinaryProtocol;
+import org.apache.thrift.transport.TSocket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.repository.query.Param;
@@ -25,8 +26,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class NewsController extends BaseController {
 	private static Logger log = LoggerFactory.getLogger(NewsController.class);
 
-	@Resource(name = "thriftClientPool")
-	private ThriftClientPool thriftClientPool;
+	@Resource(name = "thriftClientFactory")
+	private ThriftClientFactory<NewsService.Client> thriftClientFactory;
 
 	@RequestMapping("/search")
 	@ResponseBody
@@ -38,9 +39,8 @@ public class NewsController extends BaseController {
 
 		long startTime = System.currentTimeMillis();
 		try {
-			NewsService.Client client = (NewsService.Client) thriftClientPool
-					.getConnection();
-			List<News> news = client.getNews(startIndex, count);
+			ThriftClientWrap<NewsService.Client> wrap = thriftClientFactory.getClientWrap();
+			List<News> news = wrap.getClient().getNews(startIndex, count);
 			List<WebNews> newsList = new ArrayList<WebNews>();
 			for (News _n : news) {
 				WebNews n = new WebNews();
@@ -50,7 +50,7 @@ public class NewsController extends BaseController {
 				newsList.add(n);
 			}
 			data = newsList;
-			thriftClientPool.returnCon(client);
+			wrap.close();
 		} catch (Exception e) {
 			status = 999;
 			msg = "出错啦";
@@ -63,38 +63,43 @@ public class NewsController extends BaseController {
 				startIndex, count, endTime - startTime });
 		return resultMap(status, msg, data);
 	}
-
+	
 	@RequestMapping("/test")
-	@ResponseBody
-	public Map<String, Object> getUserBasicInfo() {
-		Object data = null;
-		int status = 0;
-		String msg = "";
+    @ResponseBody
+    public Map<String, Object> test() {
+	    int startIndex = 0;
+	    int count = 0;
+        Object data = null;
+        int status = 0;
+        String msg = "";
 
-		long startTime = System.currentTimeMillis();
-		try {
-			NewsService.Client client = (NewsService.Client) thriftClientPool
-					.getConnection();
-			List<News> news = client.getNews(0, 10);
-			List<WebNews> newsList = new ArrayList<WebNews>();
-			for (News _n : news) {
-				WebNews n = new WebNews();
-				n.setId(_n.getId());
-				n.setTitle(_n.getTitle());
-				n.setUrl(_n.getUrl());
-				newsList.add(n);
-			}
-			data = newsList;
-			thriftClientPool.returnCon(client);
-		} catch (Exception e) {
-			status = 999;
-			msg = "出错啦";
-			log.error("search error, startIndex:" + 0 + ", count:" + 10, e);
-		}
-		long endTime = System.currentTimeMillis();
+        long startTime = System.currentTimeMillis();
+        try {
+            TSocket socket = new TSocket("localhost",9999);
+            TBinaryProtocol protocol = new TBinaryProtocol(socket);
+            NewsService.Client client = new NewsService.Client(protocol);
+            socket.open();
+            List<News> news = client.getNews(startIndex, count);
+            List<WebNews> newsList = new ArrayList<WebNews>();
+            for (News _n : news) {
+                WebNews n = new WebNews();
+                n.setId(_n.getId());
+                n.setTitle(_n.getTitle());
+                n.setUrl(_n.getUrl());
+                newsList.add(n);
+            }
+            data = newsList;
+        } catch (Exception e) {
+            status = 999;
+            msg = "出错啦";
+            log.error("search error, startIndex:" + startIndex + ", count:"
+                    + count, e);
+        }
+        long endTime = System.currentTimeMillis();
 
-		log.info("search. startIndex:{}, count:{}, time:{}", new Object[] { 0,
-				10, endTime - startTime });
-		return resultMap(status, msg, data);
-	}
+        log.info("search. startIndex:{}, count:{}, time:{}", new Object[] {
+                startIndex, count, endTime - startTime });
+        return resultMap(status, msg, data);
+    }
+	
 }

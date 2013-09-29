@@ -61,11 +61,11 @@
 		</encoder>
 	</appender>
 	
-	<logger name="kevin.user" additivity="true" level="info">
+	<logger name="kevin.user" additivity="true" level="error">
 		<appender-ref ref="debug_file" />
 		<appender-ref ref="error_file"/>
 	</logger>
-	<root level="info">
+	<root level="error">
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="error_file" />
 	</root>

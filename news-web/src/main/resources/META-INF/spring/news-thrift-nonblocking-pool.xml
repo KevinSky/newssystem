@@ -12,13 +12,22 @@
     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
     http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
+	<bean id="socketConfig" class="kevin.lib.pool.thrift.TSocketConfig">
+		<constructor-arg index="0" value="${thrift.host}"
+			type="java.lang.String" />
+		<constructor-arg index="1" value="${thrift.port}" />
+		<constructor-arg index="2" value="2000" />
+	</bean>
+	<bean id="socketPool" class="kevin.lib.pool.thrift.TSocketPool">
+		<property name="config" ref="socketConfig" />
+		<property name="maxActive" value="4" />
+		<property name="maxIdle" value="4" />
+		<property name="minIdle" value="4" />
+	</bean>
 	<!-- thrift连接池配置 -->
-	<bean id="thriftClientPool" class="kevin.lib.pool.thrift.NonblockingClientPool">
-		<property name="clientClazz" value="kevin.news.thrift.NewsService$Client"/>
-		<property name="server" value="localhost" />
-		<property name="serverPort" value="9090" />
-		<property name="maxActive" value="10" />
-		<property name="maxIdle" value="10" />
-		<property name="conTimeOut" value="2000" />
+	<bean id="thriftClientFactory" class="kevin.lib.pool.thrift.NonblockingClientFactory">
+		<constructor-arg index="0" ref="socketPool" />
+		<constructor-arg index="1"
+			value="kevin.news.thrift.NewsService$Client" type="java.lang.String" />
 	</bean>
 </beans>

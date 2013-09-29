@@ -17,14 +17,14 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public List<News> getNewsList(int start, int count) {
-    	List<News> list = new ArrayList<News>();
-    	News n = new News();
-    	n.setId(1l);
-    	n.setTitle("test");
-    	n.setUrl("http");
-    	list.add(n);
-    	return list;
-//        return customNewsMapper.getNewsList(start, count);
+//    	List<News> list = new ArrayList<News>();
+//    	News n = new News();
+//    	n.setId(1l);
+//    	n.setTitle("test");
+//    	n.setUrl("http");
+//    	list.add(n);
+//    	return list;
+        return customNewsMapper.getNewsList(start, count);
     }
 
 }
