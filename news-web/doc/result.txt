@@ -1,25 +1,28 @@
 0 
 4 
 Failed requests:        0
-Requests per second:    1489.12 [#/sec] (mean)
+Requests per second:    1364.36 [#/sec] (mean)
 8 
 Failed requests:        0
-Requests per second:    1929.27 [#/sec] (mean)
+Requests per second:    1528.96 [#/sec] (mean)
 16 
 Failed requests:        0
-Requests per second:    1924.82 [#/sec] (mean)
+Requests per second:    1586.20 [#/sec] (mean)
+24 
+Failed requests:        0
+Requests per second:    1702.61 [#/sec] (mean)
 32 
 Failed requests:        0
-Requests per second:    1891.68 [#/sec] (mean)
+Requests per second:    1647.62 [#/sec] (mean)
+40 
+Failed requests:        0
+Requests per second:    1671.59 [#/sec] (mean)
 48 
 Failed requests:        0
-Requests per second:    1796.20 [#/sec] (mean)
+Requests per second:    1684.54 [#/sec] (mean)
+56 
+Failed requests:        0
+Requests per second:    1650.89 [#/sec] (mean)
 64 
 Failed requests:        0
-Requests per second:    1702.32 [#/sec] (mean)
-96 
-Failed requests:        0
-Requests per second:    1571.00 [#/sec] (mean)
-128 
-Failed requests:        0
-Requests per second:    1552.22 [#/sec] (mean)
+Requests per second:    1332.19 [#/sec] (mean)

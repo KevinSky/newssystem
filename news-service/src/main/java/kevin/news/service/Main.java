@@ -24,8 +24,8 @@ public class Main {
 		context.start();
 		log.info("Context started ...:" + propertyFileLocation);
 
-//		ThriftServer server = new ThriftTHsHaServer();
 //		ThriftServer server = new ThriftTThreadPoolServer();
+//		ThriftServer server = new ThriftTHsHaServer();
 		ThriftServer server = new ThriftTThreadedSelectorServer();
 
 		server.start();

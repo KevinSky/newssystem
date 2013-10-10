@@ -27,7 +27,7 @@ public class ThriftTThreadedSelectorServer implements ThriftServer {
             args.protocolFactory(new TBinaryProtocol.Factory());
             args.transportFactory(new TFramedTransport.Factory());
             args.processor(processor);
-            args.workerThreads(Const.invoke_thread_num*3);
+            args.workerThreads(Const.invoke_thread_num);
             args.selectorThreads = Const.work_thread_num;
             args.acceptQueueSizePerThread(100);
             
