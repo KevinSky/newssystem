@@ -61,7 +61,10 @@
 		</encoder>
 	</appender>
 	
-	<logger name="kevin.user" additivity="true" level="error">
+	<logger name="kevin.news.service.Main" additivity="false" level="info">
+		<appender-ref ref="STDOUT" />
+	</logger>
+	<logger name="kevin.news" additivity="true" level="error">
 		<appender-ref ref="debug_file" />
 		<appender-ref ref="error_file"/>
 	</logger>

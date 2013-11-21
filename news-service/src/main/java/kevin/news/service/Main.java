@@ -6,9 +6,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Main {
 
+    private static final Logger log2 = LoggerFactory.getLogger("kevin.news.service.Main");
 	private static final Logger log = LoggerFactory.getLogger(Main.class);
-
 	public static void main(String[] args) {
+	    log2.info("测试");
+    }
+
+	public static void main2(String[] args) {
 		String propertyFileLocation = "release.properties";
 		if (checkDev(args))
 			propertyFileLocation = "dev.properties";

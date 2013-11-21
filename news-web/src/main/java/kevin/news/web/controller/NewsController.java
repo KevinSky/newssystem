@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 
 import kevin.lib.pool.thrift.ThriftClientFactory;
 import kevin.lib.pool.thrift.ThriftClientWrap;
+import kevin.lib.util.exceptions.BusinessException;
 import kevin.news.thrift.News;
 import kevin.news.thrift.NewsService;
 import kevin.news.web.domain.WebNews;
@@ -102,4 +103,14 @@ public class NewsController extends BaseController {
         return resultMap(status, msg, data);
     }
 	
+	@RequestMapping("/bus")
+    @ResponseBody
+    public Map<String, Object> bus() throws BusinessException {
+        busE();
+        return null;
+	}
+	
+	public static void busE() throws BusinessException {
+	    throw new BusinessException("bus");
+	}
 }
